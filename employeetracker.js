@@ -5,8 +5,8 @@ var connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "",
-    database: "boston"
+    password: "Rody@1234",
+    database: "company_DB"
   });
 
   connection.connect(function(err) {
@@ -23,7 +23,7 @@ var connection = mysql.createConnection({
           type: "list",
           message: "What would you like to do?",
           name : "userChoise",
-          choices:["Show all employee roles","View all departments","View all roles","Add an employee","Add a department","Add new role","update employee details",]
+          choices:["Show all employees","View all departments","View all roles","Add an employee","Add a department","Add new role","update employee details",]
       }]).then(firstCallback);
 
 
@@ -32,7 +32,31 @@ var connection = mysql.createConnection({
 
   function firstCallback(answers){
 
-
-    console.log(answers.userChoice)
+    switch(answers) {
+        case "Show all employees":
+          showEmployee();
+          break;
+        case "View all departments":
+          viewDepartments();
+          break;
+        case "View all roles":
+          viewRoles();
+          break;
+          case "Add an employee":
+            addEmployee();
+            break;
+          case "Add a department":
+            addDepartments();
+            break;
+          case "Add new role":
+            addRoles();
+            break;
+            case "update employee details":
+                updateEmployeeDetails();
+                break;
+        default:
+          console.log("Choose a valid choise");
+      }
+   // console.log(answers);
   }
 
