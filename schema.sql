@@ -6,7 +6,7 @@ USE company_DB;
 
 CREATE TABLE department (
   id INT NOT NULL AUTO_INCREMENT,
-  name VARCHAR(100) NOT NULL,
+  dep_name VARCHAR(100) NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -15,7 +15,8 @@ CREATE TABLE emp_role (
   title VARCHAR(30) NOT NULL,
   salary DECIMAL,
   department_id INT,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+   FOREIGN KEY (department_id) REFERENCES department(id)
 );
 
 CREATE TABLE employee (
@@ -24,5 +25,6 @@ CREATE TABLE employee (
   lastName VARCHAR(30) NOT NULL,
   role_id INT ,
   manger_id INT,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+   FOREIGN KEY (role_id) REFERENCES emp_role(id)
 );
