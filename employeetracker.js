@@ -68,6 +68,9 @@ function firstCallback(answer) {
 function showEmployee() {
     connection.query('SELECT  * FROM employee;', function (err, res) {
         if (err) throw err;
+        console.log("-----------------------------------------------");
+        console.log("ID"+ " | " + "First name" + " | " + "last name"+ " | " + "Role ID");
+        console.log("-----------------------------------------------");
         for (var i = 0; i < res.length; i++) {
             console.log(res[i].id + " | " + res[i].firstName + " | " + res[i].lastName + " | " + res[i].role_id);
         }
@@ -79,10 +82,13 @@ function showEmployee() {
 function viewDepartments() {
     connection.query('SELECT  * FROM department;', function (err, res) {
         if (err) throw err;
+        console.log("-----------------------------------");
+        console.log("ID"+ " | " + "Department");
+        console.log("-----------------------------------------------");
         for (var i = 0; i < res.length; i++) {
             console.log(res[i].id + " | " + res[i].dep_name);
         }
-        console.log("------------------------------------------------------------------");
+        console.log("-----------------------------------------------");
         main();
     })
 }
@@ -91,20 +97,27 @@ function viewRoles1() {
 
     connection.query('SELECT  * FROM emp_role;', function (err, res) {
         if (err) throw err;
+        console.log("-----------------------------------------------");
+        console.log("ID"+ " | " + "Role title" + " | " + "salary"+ " | " + "Department id");
+        console.log("-----------------------------------------------");
+
         for (var i = 0; i < res.length; i++) {
             console.log(res[i].id + " | " + res[i].title + " | " + res[i].salary + " | " + res[i].department_id);
         }
-        console.log("------------------------------------------------------------------");
+        console.log("-----------------------------------------------");
     })
 }
 function viewRoles() {
 
     connection.query('SELECT  * FROM emp_role;', function (err, res) {
         if (err) throw err;
+        console.log("-----------------------------------------------");
+        console.log("ID"+ " | " + "Role title" + " | " + "salary"+ " | " + "Department id");
+        console.log("-----------------------------------------------");
         for (var i = 0; i < res.length; i++) {
             console.log(res[i].id + " | " + res[i].title + " | " + res[i].salary + " | " + res[i].department_id);
         }
-        console.log("------------------------------------------------------------------");
+        console.log("-----------------------------------------------");
         main();
     })
 }
