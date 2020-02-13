@@ -23,7 +23,7 @@ function main() {
             type: "list",
             message: "What would you like to do?",
             name: "userChoise",
-            choices: ["Show all employees", "View all departments", "View all roles", "Add an employee", "Add a department", "Add new role", "Update employee role"]
+            choices: ["Show all employees", "View all departments", "View all roles", "Add an employee", "Add a department", "Add new role", "Update employee role","Delete Employee","Exit"]
         }]).then(firstCallback)
 }
 
@@ -62,17 +62,26 @@ function firstCallback(answer) {
         updateEmployeeDetails();
     }
 
+    else if (answer.userChoise==="Delete Employee"){
+
+        deleteEmployee();
+    }
+
+    else if (answer.userChoise==="Exit"){
+        connection.end();
+    }
+
     else (console.log("something wrong"))
 }
 
 function showEmployee() {
-    connection.query('SELECT  * FROM employee;', function (err, res) {
+    connection.query('SELECT employee.id, firstName,lastName,title,dep_name FROM employee LEFT JOIN emp_role ON employee.role_id=emp_role.id LEFT JOIN department on emp_role.department_id=department.id;', function (err, res) {
         if (err) throw err;
-        console.log("-----------------------------------------------");
-        console.log("ID"+ " | " + "First name" + " | " + "last name"+ " | " + "Role ID");
-        console.log("-----------------------------------------------");
+        console.log("-------------------------------------------------------------------");
+        console.log("ID"+ " | " + "First name" + " | " + "last name"+"|"+"Role"+"|"+"department");
+        console.log("------------------------------------------------------------------");
         for (var i = 0; i < res.length; i++) {
-            console.log(res[i].id + " | " + res[i].firstName + " | " + res[i].lastName + " | " + res[i].role_id);
+            console.log(res[i].id + " |  " + res[i].firstName + " | " + res[i].lastName + " | " + res[i].title+"|"+res[i].dep_name);
         }
         console.log("------------------------------------------------------------------");
         main();
@@ -176,7 +185,6 @@ function addDepartments() {
 
                     console.log(" Your new department has been added");
                     viewDepartments();
-                    main();
 
                 })
 
@@ -256,9 +264,36 @@ function updateEmployeeDetails() {
                     if (err) throw err;
                     console.log(" Your employee role has been added");
                     showEmployee();
-                    main();
                 })
 
         })
 }
 
+
+
+function deleteEmployee(){
+
+    inquirer.
+    prompt([{
+        type: "input",
+        message: "Enter the name of the employee that you want to delete",
+        name: "empName"
+    }
+    ]).then(function (answer) {
+
+        connection.query("DELETE FROM employee WHERE ?;",
+            {
+               firstName:answer.empName
+            },
+            function (err, res) {
+                if (err) throw err;
+
+                console.log(" the employee has been deleted");
+                showEmployee();
+
+            })
+
+
+    })
+
+}
