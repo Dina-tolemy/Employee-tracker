@@ -75,13 +75,13 @@ function firstCallback(answer) {
 }
 
 function showEmployee() {
-    connection.query('SELECT employee.id, firstName,lastName,title,dep_name FROM employee LEFT JOIN emp_role ON employee.role_id=emp_role.id LEFT JOIN department on emp_role.department_id=department.id;', function (err, res) {
+    connection.query('SELECT employee.id, firstName,lastName,title,manger_id,dep_name FROM employee LEFT JOIN emp_role ON employee.role_id=emp_role.id LEFT JOIN department on emp_role.department_id=department.id;', function (err, res) {
         if (err) throw err;
         console.log("-------------------------------------------------------------------");
-        console.log("ID"+ " | " + "First name" + " | " + "last name"+"|"+"Role"+"|"+"department");
+        console.log("ID"+ " | " + "First name" + " | " + "last name"+"|"+"Role"+"|"+"MangerId"+"|"+"department"+"|");
         console.log("------------------------------------------------------------------");
         for (var i = 0; i < res.length; i++) {
-            console.log(res[i].id + " |  " + res[i].firstName + " | " + res[i].lastName + " | " + res[i].title+"|"+res[i].dep_name);
+            console.log(res[i].id + " |  " + res[i].firstName + " | " + res[i].lastName + " | " + res[i].title+"|"+res[i].manger_id+"|"+res[i].dep_name);
         }
         console.log("------------------------------------------------------------------");
         main();
